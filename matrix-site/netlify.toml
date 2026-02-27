@@ -1,0 +1,5 @@
+[build]
+  publish = "matrix-site"
+
+[functions]
+  directory = "matrix-site/netlify/functions"
