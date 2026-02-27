@@ -158,6 +158,41 @@ nav .nav-cta {
 nav .nav-cta::after { display: none !important; }
 nav .nav-cta:hover { opacity: 0.9; color: var(--navy) !important; }
 
+/* ===== LANGUAGE TOGGLE ===== */
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid rgba(242,182,48,0.25);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-left: 0.5rem;
+}
+
+.lang-toggle button {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  padding: 0.35rem 0.65rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.lang-toggle button.active {
+  background: var(--gradient-warm);
+  color: var(--navy);
+}
+
+.lang-toggle button:not(.active):hover {
+  color: var(--gold);
+  background: rgba(242,182,48,0.08);
+}
+
 .hamburger {
   display: none;
   flex-direction: column;
@@ -1414,6 +1449,12 @@ footer p {
     display: block;
   }
 
+  .lang-toggle {
+    margin: 1rem 0.5rem 0;
+    justify-content: center;
+    align-self: flex-start;
+  }
+
   .hamburger {
     z-index: 1001;
     padding: 8px;
@@ -1455,9 +1496,15 @@ footer p {
       <img src="Matrix_Logo_Transparent.png" alt="Matrix Education Agency" id="nav-logo">
     </a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#neo-hero">Home</a></li>
-      <li><a href="#neo-features">Neo</a></li>
-      <li><a href="#courses">Courses</a></li>
+      <li><a href="#neo-hero" data-i18n="nav_home">Home</a></li>
+      <li><a href="#neo-features" data-i18n="nav_neo">Neo</a></li>
+      <li><a href="#courses" data-i18n="nav_courses">Courses</a></li>
+      <li>
+        <div class="lang-toggle" id="langToggle">
+          <button class="active" onclick="setLanguage('en')">EN</button>
+          <button onclick="setLanguage('hu')">HU</button>
+        </div>
+      </li>
     </ul>
     <div class="hamburger" id="hamburger" onclick="toggleMobileNav()">
       <span></span><span></span><span></span>
@@ -1471,8 +1518,8 @@ footer p {
   <div class="neo-hero-content">
 
     <div class="neo-intro-heading">
-      <h1 class="neo-hero-title">Hi, I'm <span class="highlight">Neo</span></h1>
-      <p class="neo-hero-sub">Your personal AI learning companion at Matrix Education Agency. Ask me anything about our courses, AI skills, or how to get started.</p>
+      <h1 class="neo-hero-title" data-i18n="hero_title">Hi, I'm <span class="highlight">Neo</span></h1>
+      <p class="neo-hero-sub" data-i18n="hero_sub">Your personal AI learning companion at Matrix Education Agency. Ask me anything about our courses, AI skills, or how to get started.</p>
     </div>
 
     <div class="neo-chatbox-v2" id="neoChatbox">
@@ -1481,15 +1528,15 @@ footer p {
           <span>N</span>
         </div>
         <div class="neo-v2-header-info">
-          <div class="neo-v2-header-name">NEO — YOUR AI GUIDE</div>
-          <div class="neo-v2-header-status">● Online</div>
+          <div class="neo-v2-header-name" data-i18n="neo_header_name">NEO — YOUR AI GUIDE</div>
+          <div class="neo-v2-header-status" data-i18n="neo_header_status">● Online</div>
         </div>
       </div>
       <div class="neo-v2-messages" id="neoChatMessages">
         <!-- Messages inserted by JS -->
       </div>
       <div class="neo-v2-input-area">
-        <input type="text" id="neoInput" placeholder="Ask Neo anything..." autocomplete="off" />
+        <input type="text" id="neoInput" placeholder="Ask Neo anything..." autocomplete="off" data-i18n-placeholder="neo_input_placeholder" />
         <button id="neoSendBtn" onclick="sendNeoMessage()">
           <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
         </button>
@@ -1504,37 +1551,37 @@ footer p {
 <section id="neo-features">
   <div class="container">
     <div class="neo-features-text reveal" style="max-width: 900px; margin: 0 auto; text-align: center;">
-      <span class="section-label">Meet Neo</span>
-      <h2 class="section-title">Your Personal AI<br>Learning Companion</h2>
-      <p class="section-subtitle" style="margin-left: auto; margin-right: auto;">Neo isn't just a chatbot — it's your always-on tutor, guide, and study partner. Embedded across every course, Neo adapts to your pace and helps you learn faster.</p>
+      <span class="section-label" data-i18n="neo_features_label">Meet Neo</span>
+      <h2 class="section-title" data-i18n="neo_features_title">Your Personal AI<br>Learning Companion</h2>
+      <p class="section-subtitle" style="margin-left: auto; margin-right: auto;" data-i18n="neo_features_sub">Neo isn't just a chatbot — it's your always-on tutor, guide, and study partner. Embedded across every course, Neo adapts to your pace and helps you learn faster.</p>
 
       <ul class="neo-features-list" style="text-align: left; display: inline-block;">
         <li>
           <div class="feature-icon">💬</div>
           <div class="feature-text">
-            <h4>Real-Time Q&A</h4>
-            <p>Ask Neo anything during a lesson and get instant, context-aware answers without leaving your learning flow.</p>
+            <h4 data-i18n="feature_qa_title">Real-Time Q&A</h4>
+            <p data-i18n="feature_qa_desc">Ask Neo anything during a lesson and get instant, context-aware answers without leaving your learning flow.</p>
           </div>
         </li>
         <li>
           <div class="feature-icon">📊</div>
           <div class="feature-text">
-            <h4>Progress Tracking</h4>
-            <p>Neo monitors your progress, identifies knowledge gaps, and suggests targeted exercises to strengthen weak areas.</p>
+            <h4 data-i18n="feature_progress_title">Progress Tracking</h4>
+            <p data-i18n="feature_progress_desc">Neo monitors your progress, identifies knowledge gaps, and suggests targeted exercises to strengthen weak areas.</p>
           </div>
         </li>
         <li>
           <div class="feature-icon">🎯</div>
           <div class="feature-text">
-            <h4>Smart Recommendations</h4>
-            <p>Based on your goals and learning style, Neo recommends the perfect next course, project, or challenge.</p>
+            <h4 data-i18n="feature_recs_title">Smart Recommendations</h4>
+            <p data-i18n="feature_recs_desc">Based on your goals and learning style, Neo recommends the perfect next course, project, or challenge.</p>
           </div>
         </li>
         <li>
           <div class="feature-icon">🔧</div>
           <div class="feature-text">
-            <h4>Hands-On Assistance</h4>
-            <p>Building something? Neo can debug your workflows, review your code, and guide you through complex setups step by step.</p>
+            <h4 data-i18n="feature_hands_title">Hands-On Assistance</h4>
+            <p data-i18n="feature_hands_desc">Building something? Neo can debug your workflows, review your code, and guide you through complex setups step by step.</p>
           </div>
         </li>
       </ul>
@@ -1546,24 +1593,24 @@ footer p {
 <section id="courses">
   <div class="container">
     <div class="courses-header reveal">
-      <span class="section-label">Our Courses</span>
-      <h2 class="section-title">Build Real Skills.<br>Start Today.</h2>
-      <p class="section-subtitle">From AI fundamentals to advanced automation — choose your path and start building today.</p>
+      <span class="section-label" data-i18n="courses_label">Our Courses</span>
+      <h2 class="section-title" data-i18n="courses_title">Build Real Skills.<br>Start Today.</h2>
+      <p class="section-subtitle" data-i18n="courses_sub">From AI fundamentals to advanced automation — choose your path and start building today.</p>
     </div>
 
     <div class="courses-grid">
       <div class="course-card reveal">
         <div class="course-thumb">
           <span class="course-thumb-icon"></span>
-          <span class="course-badge">Coming Soon</span>
+          <span class="course-badge" data-i18n="course_badge_coming">Coming Soon</span>
         </div>
         <div class="course-content">
-          <div class="course-category">AI Fundamentals</div>
-          <h3>AI Launchpad: From Zero to Hero</h3>
-          <p>Master the basics — learn how to utilise Large Language Models (LLMs) to unlock your true potential.</p>
+          <div class="course-category" data-i18n="course1_category">AI Fundamentals</div>
+          <h3 data-i18n="course1_title">AI Launchpad: From Zero to Hero</h3>
+          <p data-i18n="course1_desc">Master the basics — learn how to utilise Large Language Models (LLMs) to unlock your true potential.</p>
           <div class="course-meta">
-            <span>8 Modules</span>
-            <span class="course-price">TBA</span>
+            <span data-i18n="course1_modules">8 Modules</span>
+            <span class="course-price" data-i18n="course_price_tba">TBA</span>
           </div>
         </div>
       </div>
@@ -1571,15 +1618,15 @@ footer p {
       <div class="course-card reveal">
         <div class="course-thumb">
           <span class="course-thumb-icon"></span>
-          <span class="course-badge">Coming Soon</span>
+          <span class="course-badge" data-i18n="course_badge_coming">Coming Soon</span>
         </div>
         <div class="course-content">
-          <div class="course-category">Development</div>
-          <h3>AI Mastery: Build & Ship with AI Code</h3>
-          <p>Use Claude Code and AI-assisted development to build websites, dashboards, and SaaS products — no traditional coding required.</p>
+          <div class="course-category" data-i18n="course2_category">Development</div>
+          <h3 data-i18n="course2_title">AI Mastery: Build & Ship with AI Code</h3>
+          <p data-i18n="course2_desc">Use Claude Code and AI-assisted development to build websites, dashboards, and SaaS products — no traditional coding required.</p>
           <div class="course-meta">
-            <span>12 Modules</span>
-            <span class="course-price">TBA</span>
+            <span data-i18n="course2_modules">12 Modules</span>
+            <span class="course-price" data-i18n="course_price_tba">TBA</span>
           </div>
         </div>
       </div>
@@ -1591,20 +1638,20 @@ footer p {
 <section id="signup">
   <div class="container">
     <div class="signup-box reveal">
-      <span class="section-label">Stay in the Loop</span>
-      <h2 class="section-title">Get Notified When<br>Courses Launch</h2>
-      <p class="section-subtitle">Be the first to know when new courses drop, plus get exclusive early access and founding member pricing.</p>
+      <span class="section-label" data-i18n="signup_label">Stay in the Loop</span>
+      <h2 class="section-title" data-i18n="signup_title">Get Notified When<br>Courses Launch</h2>
+      <p class="section-subtitle" data-i18n="signup_sub">Be the first to know when new courses drop, plus get exclusive early access and founding member pricing.</p>
       <div id="signupFormWrap">
         <div class="signup-form">
-          <input type="email" id="signupEmail" placeholder="Your email address" required />
-          <button onclick="handleSignup()">Notify Me</button>
+          <input type="email" id="signupEmail" placeholder="Your email address" required data-i18n-placeholder="signup_placeholder" />
+          <button onclick="handleSignup()" data-i18n="signup_btn">Notify Me</button>
         </div>
-        <p class="signup-note">No spam, ever. Unsubscribe anytime.</p>
+        <p class="signup-note" data-i18n="signup_note">No spam, ever. Unsubscribe anytime.</p>
       </div>
       <div class="signup-success" id="signupSuccess">
         <div class="success-icon">🎉</div>
-        <h3>You're on the list!</h3>
-        <p>We'll email you when courses launch — at early-bird pricing.</p>
+        <h3 data-i18n="signup_success_title">You're on the list!</h3>
+        <p data-i18n="signup_success_desc">We'll email you when courses launch — at early-bird pricing.</p>
       </div>
     </div>
   </div>
@@ -1614,8 +1661,8 @@ footer p {
 <section id="testimonials">
   <div class="container">
     <div class="testimonials-header reveal">
-      <span class="section-label">Testimonials</span>
-      <h2 class="section-title">Don't Just Take<br>Our Word for It.</h2>
+      <span class="section-label" data-i18n="testimonials_label">Testimonials</span>
+      <h2 class="section-title" data-i18n="testimonials_title">Don't Just Take<br>Our Word for It.</h2>
     </div>
   </div>
 
@@ -1624,64 +1671,64 @@ footer p {
     <div class="reviews-row scroll-left">
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"Matrix made AI feel approachable for the first time. I went from confused to confident in just a few weeks."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review1">"Matrix made AI feel approachable for the first time. I went from confused to confident in just a few weeks."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"Neo is a game-changer. Having an AI companion that actually understands where you are in the course makes all the difference."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review2">"Neo is a game-changer. Having an AI companion that actually understands where you are in the course makes all the difference."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"I've tried other AI courses — they're all theory. Matrix is the first one where I actually built something real."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review3">"I've tried other AI courses — they're all theory. Matrix is the first one where I actually built something real."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"The community aspect is what keeps me coming back. Learning alongside others who are just as driven is incredibly motivating."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review4">"The community aspect is what keeps me coming back. Learning alongside others who are just as driven is incredibly motivating."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"Clear, practical, and genuinely useful. Matrix doesn't waste your time — every lesson has a purpose."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review5">"Clear, practical, and genuinely useful. Matrix doesn't waste your time — every lesson has a purpose."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"Started from zero. Now I'm automating workflows at my job and my boss thinks I'm a genius."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review6">"Started from zero. Now I'm automating workflows at my job and my boss thinks I'm a genius."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
       <!-- Duplicate for seamless loop -->
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"Matrix made AI feel approachable for the first time. I went from confused to confident in just a few weeks."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review1">"Matrix made AI feel approachable for the first time. I went from confused to confident in just a few weeks."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"Neo is a game-changer. Having an AI companion that actually understands where you are in the course makes all the difference."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review2">"Neo is a game-changer. Having an AI companion that actually understands where you are in the course makes all the difference."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"I've tried other AI courses — they're all theory. Matrix is the first one where I actually built something real."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review3">"I've tried other AI courses — they're all theory. Matrix is the first one where I actually built something real."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"The community aspect is what keeps me coming back. Learning alongside others who are just as driven is incredibly motivating."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review4">"The community aspect is what keeps me coming back. Learning alongside others who are just as driven is incredibly motivating."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"Clear, practical, and genuinely useful. Matrix doesn't waste your time — every lesson has a purpose."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review5">"Clear, practical, and genuinely useful. Matrix doesn't waste your time — every lesson has a purpose."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"Started from zero. Now I'm automating workflows at my job and my boss thinks I'm a genius."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review6">"Started from zero. Now I'm automating workflows at my job and my boss thinks I'm a genius."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
     </div>
 
@@ -1689,64 +1736,64 @@ footer p {
     <div class="reviews-row scroll-right">
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"The hands-on approach is exactly what I needed. No fluff, just real skills I can use immediately."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review7">"The hands-on approach is exactly what I needed. No fluff, just real skills I can use immediately."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"I was skeptical about AI education platforms, but Matrix completely changed my perspective. Worth every minute."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review8">"I was skeptical about AI education platforms, but Matrix completely changed my perspective. Worth every minute."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"Neo helped me debug an automation I'd been stuck on for days. It's like having a tutor on call 24/7."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review9">"Neo helped me debug an automation I'd been stuck on for days. It's like having a tutor on call 24/7."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"Finally, an AI course that doesn't just talk about prompts. Matrix teaches you to actually build things."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review10">"Finally, an AI course that doesn't just talk about prompts. Matrix teaches you to actually build things."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"The quality of the content is exceptional. You can tell real thought went into every module."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review11">"The quality of the content is exceptional. You can tell real thought went into every module."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"Matrix gave me the confidence to transition into an AI-focused role. Best investment in my career so far."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review12">"Matrix gave me the confidence to transition into an AI-focused role. Best investment in my career so far."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
       <!-- Duplicate for seamless loop -->
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"The hands-on approach is exactly what I needed. No fluff, just real skills I can use immediately."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review7">"The hands-on approach is exactly what I needed. No fluff, just real skills I can use immediately."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"I was skeptical about AI education platforms, but Matrix completely changed my perspective. Worth every minute."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review8">"I was skeptical about AI education platforms, but Matrix completely changed my perspective. Worth every minute."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"Neo helped me debug an automation I'd been stuck on for days. It's like having a tutor on call 24/7."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review9">"Neo helped me debug an automation I'd been stuck on for days. It's like having a tutor on call 24/7."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"Finally, an AI course that doesn't just talk about prompts. Matrix teaches you to actually build things."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review10">"Finally, an AI course that doesn't just talk about prompts. Matrix teaches you to actually build things."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"The quality of the content is exceptional. You can tell real thought went into every module."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review11">"The quality of the content is exceptional. You can tell real thought went into every module."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <blockquote>"Matrix gave me the confidence to transition into an AI-focused role. Best investment in my career so far."</blockquote>
-        <div class="review-author">— <span>Future Student</span></div>
+        <blockquote data-i18n="review12">"Matrix gave me the confidence to transition into an AI-focused role. Best investment in my career so far."</blockquote>
+        <div class="review-author">— <span data-i18n="review_author_future">Future Student</span></div>
       </div>
     </div>
   </div>
@@ -1755,21 +1802,21 @@ footer p {
 <section id="mission">
   <div class="container">
     <div class="mission-header reveal">
-      <span class="section-label">Why Matrix</span>
-      <h2 class="section-title">Our Mission</h2>
-      <p class="section-subtitle">Matrix exists to bridge the gap between traditional learning and the skills that actually matter in a world shaped by artificial intelligence.</p>
+      <span class="section-label" data-i18n="mission_label">Why Matrix</span>
+      <h2 class="section-title" data-i18n="mission_title">Our Mission</h2>
+      <p class="section-subtitle" data-i18n="mission_sub">Matrix exists to bridge the gap between traditional learning and the skills that actually matter in a world shaped by artificial intelligence.</p>
     </div>
 
     <div class="mission-grid">
       <div class="mission-card reveal">
         <div class="mission-icon"><svg width="34" height="34" viewBox="0 0 32 32" fill="none" stroke="#F2B630" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><!-- Brain left hemisphere --><path d="M16 4C13 4 10.5 5.5 9.5 8C8 8.2 6.5 9.5 6 11.5C5.2 13.5 5.5 15.5 7 17C6.5 18.5 7 20.5 8.5 21.5C9.5 23.5 11.5 24.5 13.5 24L16 24"/><!-- Brain right hemisphere --><path d="M16 4C19 4 21.5 5.5 22.5 8C24 8.2 25.5 9.5 26 11.5C26.8 13.5 26.5 15.5 25 17C25.5 18.5 25 20.5 23.5 21.5C22.5 23.5 20.5 24.5 18.5 24L16 24"/><!-- Brain center line --><line x1="16" y1="4" x2="16" y2="24"/></svg></div>
-        <h3>Building Awareness</h3>
-        <p>We believe everyone deserves to understand and harness the power of AI, regardless of their technical background. Our courses break down complex concepts into clear, actionable knowledge — meeting you exactly where you are.</p>
+        <h3 data-i18n="mission_card1_title">Building Awareness</h3>
+        <p data-i18n="mission_card1_desc">We believe everyone deserves to understand and harness the power of AI, regardless of their technical background. Our courses break down complex concepts into clear, actionable knowledge — meeting you exactly where you are.</p>
       </div>
       <div class="mission-card reveal">
         <div class="mission-icon"><svg width="34" height="34" viewBox="0 0 32 32" fill="none" stroke="#F2B630" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4L7.5 9v5.5c0 4.5 3.2 9.5 8.5 11.5 5.3-2 8.5-7 8.5-11.5V9L16 4z"/><polyline points="13 15 15 17 19 13"/></svg></div>
-        <h3>Becoming Future-Proof</h3>
-        <p>The job market is evolving at breakneck speed. We help students, professionals, and entrepreneurs stay ahead by mastering the tools shaping tomorrow — so you're never left behind.</p>
+        <h3 data-i18n="mission_card2_title">Becoming Future-Proof</h3>
+        <p data-i18n="mission_card2_desc">The job market is evolving at breakneck speed. We help students, professionals, and entrepreneurs stay ahead by mastering the tools shaping tomorrow — so you're never left behind.</p>
       </div>
     </div>
   </div>
@@ -1785,12 +1832,12 @@ footer p {
         </div>
       </div>
       <div class="founder-text">
-        <span class="section-label">Meet the Founder</span>
-        <h2 class="founder-name">András Sárosi</h2>
-        <p class="founder-title">CEO & Founder of Matrix</p>
-        <p class="founder-bio">With a deep passion for artificial intelligence and education, I founded Matrix Education Agency to bridge the gap between cutting-edge AI tools and the people who want to use them.</p>
-        <p class="founder-bio">After years of working with AI in professional settings, I saw firsthand how transformative these tools could be — and how few people had access to practical, hands-on training. Matrix was built to change that.</p>
-        <p class="founder-bio">Every course, every feature of Neo, and every piece of content here is designed with one goal: helping you go from curious to capable, as fast as possible.</p>
+        <span class="section-label" data-i18n="founder_label">Meet the Founder</span>
+        <h2 class="founder-name" data-i18n="founder_name">András Sárosi</h2>
+        <p class="founder-title" data-i18n="founder_title">CEO & Founder of Matrix</p>
+        <p class="founder-bio" data-i18n="founder_bio1">With a deep passion for artificial intelligence and education, I founded Matrix Education Agency to bridge the gap between cutting-edge AI tools and the people who want to use them.</p>
+        <p class="founder-bio" data-i18n="founder_bio2">After years of working with AI in professional settings, I saw firsthand how transformative these tools could be — and how few people had access to practical, hands-on training. Matrix was built to change that.</p>
+        <p class="founder-bio" data-i18n="founder_bio3">Every course, every feature of Neo, and every piece of content here is designed with one goal: helping you go from curious to capable, as fast as possible.</p>
         <div class="founder-socials">
           <a href="#" aria-label="LinkedIn">in</a>
           <a href="#" aria-label="Twitter / X">𝕏</a>
@@ -1806,10 +1853,234 @@ footer p {
   <div class="footer-logo">
     <img src="Matrix_Logo_Transparent.png" alt="Matrix Education Agency" id="footer-logo">
   </div>
-  <p>© 2026 Matrix Education Agency. All rights reserved.</p>
+  <p data-i18n="footer_copy">© 2026 Matrix Education Agency. All rights reserved.</p>
 </footer>
 
 <script>
+// ===== INTERNATIONALIZATION (i18n) =====
+const translations = {
+  en: {
+    // Nav
+    nav_home: "Home",
+    nav_neo: "Neo",
+    nav_courses: "Courses",
+
+    // Hero
+    hero_title: 'Hi, I\'m <span class="highlight">Neo</span>',
+    hero_sub: "Your personal AI learning companion at Matrix Education Agency. Ask me anything about our courses, AI skills, or how to get started.",
+
+    // Neo chatbox
+    neo_header_name: "NEO — YOUR AI GUIDE",
+    neo_header_status: "● Online",
+    neo_input_placeholder: "Ask Neo anything...",
+
+    // Neo features
+    neo_features_label: "Meet Neo",
+    neo_features_title: "Your Personal AI<br>Learning Companion",
+    neo_features_sub: "Neo isn't just a chatbot — it's your always-on tutor, guide, and study partner. Embedded across every course, Neo adapts to your pace and helps you learn faster.",
+    feature_qa_title: "Real-Time Q&A",
+    feature_qa_desc: "Ask Neo anything during a lesson and get instant, context-aware answers without leaving your learning flow.",
+    feature_progress_title: "Progress Tracking",
+    feature_progress_desc: "Neo monitors your progress, identifies knowledge gaps, and suggests targeted exercises to strengthen weak areas.",
+    feature_recs_title: "Smart Recommendations",
+    feature_recs_desc: "Based on your goals and learning style, Neo recommends the perfect next course, project, or challenge.",
+    feature_hands_title: "Hands-On Assistance",
+    feature_hands_desc: "Building something? Neo can debug your workflows, review your code, and guide you through complex setups step by step.",
+
+    // Courses
+    courses_label: "Our Courses",
+    courses_title: "Build Real Skills.<br>Start Today.",
+    courses_sub: "From AI fundamentals to advanced automation — choose your path and start building today.",
+    course_badge_coming: "Coming Soon",
+    course1_category: "AI Fundamentals",
+    course1_title: "AI Launchpad: From Zero to Hero",
+    course1_desc: "Master the basics — learn how to utilise Large Language Models (LLMs) to unlock your true potential.",
+    course1_modules: "8 Modules",
+    course2_category: "Development",
+    course2_title: "AI Mastery: Build & Ship with AI Code",
+    course2_desc: "Use Claude Code and AI-assisted development to build websites, dashboards, and SaaS products — no traditional coding required.",
+    course2_modules: "12 Modules",
+    course_price_tba: "TBA",
+
+    // Signup
+    signup_label: "Stay in the Loop",
+    signup_title: "Get Notified When<br>Courses Launch",
+    signup_sub: "Be the first to know when new courses drop, plus get exclusive early access and founding member pricing.",
+    signup_placeholder: "Your email address",
+    signup_btn: "Notify Me",
+    signup_note: "No spam, ever. Unsubscribe anytime.",
+    signup_success_title: "You're on the list!",
+    signup_success_desc: "We'll email you when courses launch — at early-bird pricing.",
+
+    // Testimonials
+    testimonials_label: "Testimonials",
+    testimonials_title: "Don't Just Take<br>Our Word for It.",
+    review_author_future: "Future Student",
+    review1: "\"Matrix made AI feel approachable for the first time. I went from confused to confident in just a few weeks.\"",
+    review2: "\"Neo is a game-changer. Having an AI companion that actually understands where you are in the course makes all the difference.\"",
+    review3: "\"I've tried other AI courses — they're all theory. Matrix is the first one where I actually built something real.\"",
+    review4: "\"The community aspect is what keeps me coming back. Learning alongside others who are just as driven is incredibly motivating.\"",
+    review5: "\"Clear, practical, and genuinely useful. Matrix doesn't waste your time — every lesson has a purpose.\"",
+    review6: "\"Started from zero. Now I'm automating workflows at my job and my boss thinks I'm a genius.\"",
+    review7: "\"The hands-on approach is exactly what I needed. No fluff, just real skills I can use immediately.\"",
+    review8: "\"I was skeptical about AI education platforms, but Matrix completely changed my perspective. Worth every minute.\"",
+    review9: "\"Neo helped me debug an automation I'd been stuck on for days. It's like having a tutor on call 24/7.\"",
+    review10: "\"Finally, an AI course that doesn't just talk about prompts. Matrix teaches you to actually build things.\"",
+    review11: "\"The quality of the content is exceptional. You can tell real thought went into every module.\"",
+    review12: "\"Matrix gave me the confidence to transition into an AI-focused role. Best investment in my career so far.\"",
+
+    // Mission
+    mission_label: "Why Matrix",
+    mission_title: "Our Mission",
+    mission_sub: "Matrix exists to bridge the gap between traditional learning and the skills that actually matter in a world shaped by artificial intelligence.",
+    mission_card1_title: "Building Awareness",
+    mission_card1_desc: "We believe everyone deserves to understand and harness the power of AI, regardless of their technical background. Our courses break down complex concepts into clear, actionable knowledge — meeting you exactly where you are.",
+    mission_card2_title: "Becoming Future-Proof",
+    mission_card2_desc: "The job market is evolving at breakneck speed. We help students, professionals, and entrepreneurs stay ahead by mastering the tools shaping tomorrow — so you're never left behind.",
+
+    // Founder
+    founder_label: "Meet the Founder",
+    founder_name: "András Sárosi",
+    founder_title: "CEO & Founder of Matrix",
+    founder_bio1: "With a deep passion for artificial intelligence and education, I founded Matrix Education Agency to bridge the gap between cutting-edge AI tools and the people who want to use them.",
+    founder_bio2: "After years of working with AI in professional settings, I saw firsthand how transformative these tools could be — and how few people had access to practical, hands-on training. Matrix was built to change that.",
+    founder_bio3: "Every course, every feature of Neo, and every piece of content here is designed with one goal: helping you go from curious to capable, as fast as possible.",
+
+    // Footer
+    footer_copy: "© 2026 Matrix Education Agency. All rights reserved."
+  },
+
+  hu: {
+    // Nav
+    nav_home: "Főoldal",
+    nav_neo: "Neo",
+    nav_courses: "Kurzusaink",
+
+    // Hero
+    hero_title: 'A nevem <span class="highlight">Neo</span><br>Téged hogy hívnak?',
+    hero_sub: "Kérdezz bátran a mesterséges intelligenciáról, a kurzusainkról, vagy bármiről, ami érdekel Téged!",
+
+    // Neo chatbox
+    neo_header_name: "NEO – AZ AI TANULÓPARTNERED",
+    neo_header_status: "● Elérhető",
+    neo_input_placeholder: "Kérdezz Neótól bármit...",
+
+    // Neo features
+    neo_features_label: "Ismerd meg Neót",
+    neo_features_title: "A Te AI tanulótársad.",
+    neo_features_sub: "Neo nem csupán egy chatbot — a mindig elérhető oktatód, útmutatód és tanulópartnered. Minden kurzusba beágyazva, Neo alkalmazkodik a tempódhoz, és segít gyorsabban tanulni.",
+    feature_qa_title: "Valós idejű kérdezz-felelek",
+    feature_qa_desc: "Kérdezz Neótól bármit egy lecke közben, és kapj azonnali, kontextus-alapú válaszokat anélkül, hogy kilépnél a tanulási folyamatból.",
+    feature_progress_title: "Haladás nyomon követése",
+    feature_progress_desc: "Neo figyelemmel kíséri a fejlődésedet, azonosítja a tudásbeli hiányosságokat, és célzott gyakorlatokat javasol a gyenge pontok erősítésére.",
+    feature_recs_title: "Intelligens ajánlások",
+    feature_recs_desc: "Céljaid és tanulási stílusod alapján Neo a tökéletes következő kurzust, projektet vagy kihívást ajánlja számodra.",
+    feature_hands_title: "Gyakorlati segítség",
+    feature_hands_desc: "Építesz valamit? Neo segíthet a munkafolyamataid hibakeresésében, átnézheti a kódodat, és lépésről lépésre végigvezethet az összetett beállításokon.",
+
+    // Courses
+    courses_label: "Kurzusaink",
+    courses_title: "Készülj fel a 21. század kihívásaira.<br>Kezdd el még ma!",
+    courses_sub: "AI alapismeretektől a munkafolyamat automatizálásig — válaszd a saját utad, és törj ki a mátrixból.",
+    course_badge_coming: "Hamarosan",
+    course1_category: "AI Alapok",
+    course1_title: "AI Launchpad: A nulláról a csúcsra",
+    course1_desc: "Sajátítsd el az alapokat — tanuld meg, hogyan használd a nagy nyelvi modelleket (LLM-eket) a valódi potenciálod kibontakoztatásához.",
+    course1_modules: "8 modul",
+    course2_category: "Fejlesztés",
+    course2_title: "AI Mastery: Építs és publikálj AI kóddal",
+    course2_desc: "Használd a Claude Code-ot és az AI-támogatott fejlesztést weboldalak, dashboardok és SaaS termékek építéséhez — hagyományos programozás nélkül.",
+    course2_modules: "12 modul",
+    course_price_tba: "Hamarosan",
+
+    // Signup
+    signup_label: "Maradj képben",
+    signup_title: "Értesülj, ha új<br>kurzusok indulnak.",
+    signup_sub: "Légy az első, aki értesül az új kurzusok megjelenéséről, és kaps exkluzív korai hozzáférést valamint alapító tagi árazást.",
+    signup_placeholder: "Az email címed",
+    signup_btn: "Értesíts",
+    signup_note: "Nincs spam, soha. Bármikor leiratkozhatsz.",
+    signup_success_title: "Feliratkoztál!",
+    signup_success_desc: "Emailben értesítünk, amikor elindulnak a kurzusok — kedvezményes áron.",
+
+    // Testimonials
+    testimonials_label: "Vélemények",
+    testimonials_title: "Kérdezz meg másokat!",
+    review_author_future: "Leendő hallgató",
+    review1: "\"A Matrix volt az első hely, ahol az AI végre megközelíthetőnek tűnt. Néhány hét alatt a tanácstalanságból magabiztosságba jutottam.\"",
+    review2: "\"Neo mindent megváltoztat. Egy olyan AI társsal tanulni, aki tényleg érti, hol tartasz a kurzusban — ez hatalmas különbség.\"",
+    review3: "\"Kipróbáltam más AI kurzusokat is — mind csak elmélet. A Matrixnál végre valódi dolgot építettem.\"",
+    review4: "\"A közösségi élmény az, ami visszahúz. Olyan emberek mellett tanulni, akik ugyanolyan elszántak, hihetetlenül motiváló.\"",
+    review5: "\"Világos, gyakorlatias és valóban hasznos. A Matrix nem pazarolja az idődet — minden leckének célja van.\"",
+    review6: "\"A nulláról indultam. Most már automatizálom a munkafolyamatokat az irodában, és a főnököm zseniálisnak tart.\"",
+    review7: "\"A gyakorlati megközelítés pont az, amire szükségem volt. Semmi felesleg, csak valódi, azonnal használható tudás.\"",
+    review8: "\"Szkeptikus voltam az AI oktatási platformokkal szemben, de a Matrix teljesen megváltoztatta a véleményemet. Megérte minden percét.\"",
+    review9: "\"Neo segített megoldani egy automatizálást, amin napokig elakadtam. Olyan, mintha lenne egy oktatód, aki mindig elérhető.\"",
+    review10: "\"Végre egy AI kurzus, ami nem csak a promptokról szól. A Matrixnál megtanulsz valóban építeni.\"",
+    review11: "\"A tartalom minősége kivételes. Látszik, hogy minden modulba komoly gondolkodás ment bele.\"",
+    review12: "\"A Matrix adta meg az önbizalmat, hogy AI-fókuszú karrierre váltsak. Az eddigi legjobb befektetés a karrierembe.\"",
+
+    // Mission
+    mission_label: "Miért a Matrix",
+    mission_title: "Küldetésünk:",
+    mission_sub: "A Matrix azért létezik, hogy áthidalja a szakadékot a hagyományos tanulás és a mesterséges intelligencia által formált világban valóban fontos készségek között.",
+    mission_card1_title: "Tudatosság Építése",
+    mission_card1_desc: "Hisszük, hogy mindenki megérdemli, hogy megértse és kihasználja az AI erejét, technikai háttértől függetlenül. Kurzusaink az összetett fogalmakat világos, gyakorlatba ültethető tudássá alakítják — pont ott találkozunk veled, ahol tartasz.",
+    mission_card2_title: "Jövőbiztonság",
+    mission_card2_desc: "A munkaerőpiac szédítő sebességgel fejlődik. Diákoknak, szakembereknek és vállalkozóknak segítünk előnyben maradni a holnapot formáló eszközök elsajátításával — hogy soha ne maradj le.",
+
+    // Founder
+    founder_label: "Az alapítóról",
+    founder_name: "Sárosi András",
+    founder_title: "A Matrix alapítója és vezérigazgatója",
+    founder_bio1: "A mesterséges intelligencia és az oktatás iránti mély szenvedéllyel alapítottam a Matrix Education Agency-t, hogy áthidaljam a szakadékot a legmodernebb AI eszközök és azok között, akik használni szeretnék őket.",
+    founder_bio2: "Miután évekig dolgoztam AI-jal professzionális környezetben, saját szememmel láttam, milyen átalakító erejűek lehetnek ezek az eszközök — és milyen kevesen jutnak gyakorlati, kézzelfogható képzéshez. A Matrix azért született, hogy ezen változtasson.",
+    founder_bio3: "Minden kurzus, Neo minden funkciója és minden itt található tartalom egyetlen célt szolgál: segíteni, hogy a kíváncsiságból mielőbb tudás legyen.",
+
+    // Footer
+    footer_copy: "© 2026 Matrix Education Agency. Minden jog fenntartva."
+  }
+};
+
+let currentLang = 'en';
+
+function setLanguage(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
+
+  // Update toggle buttons
+  document.querySelectorAll('#langToggle button').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
+  });
+
+  // Update all data-i18n elements (innerHTML)
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang][key] !== undefined) {
+      el.innerHTML = translations[lang][key];
+    }
+  });
+
+  // Update all data-i18n-placeholder elements
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (translations[lang][key] !== undefined) {
+      el.placeholder = translations[lang][key];
+    }
+  });
+
+  // Store preference
+  try { localStorage.setItem('matrix-lang', lang); } catch(e) {}
+}
+
+// Restore saved language preference on load
+try {
+  const saved = localStorage.getItem('matrix-lang');
+  if (saved && translations[saved]) {
+    setLanguage(saved);
+  }
+} catch(e) {}
+
 // ===== NEO INTERACTIVE CHATBOX =====
 const neoChatMessages = document.getElementById('neoChatMessages');
 const neoInput = document.getElementById('neoInput');
