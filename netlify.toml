@@ -1,5 +1,6 @@
 [build]
-  publish = "neoai-site"
+  command = "echo 'No build needed'"
+  publish = "neoai-site/"
 
 [functions]
   directory = "neoai-site/netlify/functions"
