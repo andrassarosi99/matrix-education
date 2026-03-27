@@ -1,0 +1,5 @@
+[build]
+  publish = "neoai-site"
+
+[functions]
+  directory = "neoai-site/netlify/functions"
