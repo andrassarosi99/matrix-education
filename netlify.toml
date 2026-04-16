@@ -1,6 +1,12 @@
-[build]
-  command = "echo 'No build needed'"
-  publish = "neoai-site/"
+ [build]
+   command = "echo 'No build needed'"
+   publish = "neoai-site/"
 
-[functions]
-  directory = "neoai-site/netlify/functions"
+ [functions]
+   directory = "neoai-site/netlify/functions"
+
++# Added for the Neo chat function: it uses TypeScript imports from sibling
++# `prompts/` files, which require the esbuild bundler to bundle correctly.
++# Scoped to just this function so other functions keep whatever default they had.
++[functions."neo-chat"]
++  node_bundler = "esbuild"
