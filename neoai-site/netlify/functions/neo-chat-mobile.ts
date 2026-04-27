@@ -56,7 +56,10 @@ type AnthropicResponse = {
 };
 
 const ANTHROPIC_API = 'https://api.anthropic.com/v1/messages';
-const MODEL = 'claude-haiku-4-5-20251001';
+const MODELS: Record<'en' | 'hu', string> = {
+  en: 'claude-haiku-4-5-20251001',
+  hu: 'claude-sonnet-4-6',
+};
 const MAX_TOKENS = 1024;
 
 const CORS_HEADERS = {
@@ -146,7 +149,7 @@ export default async (req: Request): Promise<Response> => {
         'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({
-        model: MODEL,
+        model: MODELS[language === 'hu' ? 'hu' : 'en'],
         max_tokens: MAX_TOKENS,
         system: systemPrompt,
         messages: cleanedMessages,
