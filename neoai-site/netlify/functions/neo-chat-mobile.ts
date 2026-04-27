@@ -20,10 +20,12 @@
  * { "reply": string }
  *
  * Required environment variables (Netlify site settings → Environment):
- *   ANTHROPIC_API_KEY   — your Anthropic API key (required)
- *   ENV                 — set to "development" to allow client-side
- *                         system_prompt overrides. Any other value (or
- *                         unset) disables the override.
+ *   NEO_ANTHROPIC_API_KEY  — your Anthropic API key (required). Renamed from
+ *                            ANTHROPIC_API_KEY because Netlify's AI Gateway
+ *                            extension auto-injects a JWT into that name.
+ *   ENV                    — set to "development" to allow client-side
+ *                            system_prompt overrides. Any other value (or
+ *                            unset) disables the override.
  *
  * Deploy notes:
  *   - Copy this `netlify/` directory (plus `netlify.toml` at the repo root
@@ -81,10 +83,10 @@ export default async (req: Request): Promise<Response> => {
     return new Response('Method Not Allowed', { status: 405, headers: CORS_HEADERS });
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.NEO_ANTHROPIC_API_KEY;
   if (!apiKey) {
     return Response.json(
-      { error: 'ANTHROPIC_API_KEY not configured' },
+      { error: 'NEO_ANTHROPIC_API_KEY not configured' },
       { status: 500, headers: CORS_HEADERS },
     );
   }

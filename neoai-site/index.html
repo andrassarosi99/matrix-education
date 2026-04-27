@@ -1897,6 +1897,7 @@ const translations = {
     neo_header_name: "NEO — YOUR AI GUIDE",
     neo_header_status: "● Online",
     neo_input_placeholder: "Ask Neo anything...",
+    neo_chat_greeting: "Hi! I'm Neo, your AI learning companion.",
 
     // Neo features
     neo_features_label: "Meet Neo",
@@ -1992,6 +1993,7 @@ const translations = {
     neo_header_name: "NEO – AZ AI TANULÓPARTNERED",
     neo_header_status: "● Elérhető",
     neo_input_placeholder: "Kérdezz Neótól bármit...",
+    neo_chat_greeting: "Szia! Neo vagyok, az AI tanulópartnered.",
 
     // Neo features
     neo_features_label: "Ismerd meg Neót",
@@ -2101,8 +2103,33 @@ function setLanguage(lang) {
     }
   });
 
+  // Re-render the static greeting bubble in the active language
+  renderGreeting();
+
   // Store preference
   try { localStorage.setItem('neoai-lang', lang); } catch(e) {}
+}
+
+// Renders the static welcome greeting as a bot bubble at the top of the chat.
+// UI-only: never added to neoConversationHistory, so the model is unaware.
+function renderGreeting() {
+  const messagesEl = document.getElementById('neoChatMessages');
+  if (!messagesEl) return;
+  const existing = document.getElementById('neoGreeting');
+  if (existing) existing.remove();
+  const text = (translations[currentLang] && translations[currentLang].neo_chat_greeting)
+    || translations.en.neo_chat_greeting;
+  if (!text) return;
+  const msg = document.createElement('div');
+  msg.className = 'neo-v2-msg bot';
+  msg.id = 'neoGreeting';
+  const bubble = document.createElement('div');
+  bubble.className = 'msg-bubble';
+  bubble.innerHTML = text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br>');
+  msg.appendChild(bubble);
+  messagesEl.insertBefore(msg, messagesEl.firstChild);
 }
 
 // Restore saved language preference on load
@@ -2110,8 +2137,13 @@ try {
   const saved = localStorage.getItem('neoai-lang');
   if (saved && translations[saved]) {
     setLanguage(saved);
+  } else {
+    // No saved preference — render the greeting for the default (EN) language
+    renderGreeting();
   }
-} catch(e) {}
+} catch(e) {
+  renderGreeting();
+}
 
 // ===== NEO INTERACTIVE CHATBOX =====
 const neoChatMessages = document.getElementById('neoChatMessages');
@@ -2170,25 +2202,30 @@ async function sendNeoMessage() {
     const response = await fetch('/.netlify/functions/neo-chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: neoConversationHistory })
+      body: JSON.stringify({ messages: neoConversationHistory, language: currentLang })
     });
 
     removeTypingIndicator();
 
     if (!response.ok) {
       const errData = await response.json().catch(() => ({}));
-      const errMsg = errData.error || "Hmm, I'm having a bit of trouble right now. Give me a moment and try again!";
-      addMessage(errMsg, 'bot');
+      const fallback = currentLang === 'hu'
+        ? 'Hmm, valami nem stimmel nálam. Adj egy pillanatot és próbáld újra!'
+        : "Hmm, I'm having a bit of trouble right now. Give me a moment and try again!";
+      addMessage(errData.error || fallback, 'bot');
     } else {
       const data = await response.json();
-      const botMessage = data.message;
+      const botMessage = data.reply;
       addMessage(botMessage, 'bot');
       // Add assistant response to history for context
       neoConversationHistory.push({ role: 'assistant', content: botMessage });
     }
   } catch (err) {
     removeTypingIndicator();
-    addMessage("Oops, looks like I lost connection for a second. Could you try that again?", 'bot');
+    const offlineMsg = currentLang === 'hu'
+      ? 'Ajaj, megszakadt a kapcsolat. Megpróbálnád még egyszer?'
+      : "Oops, looks like I lost connection for a second. Could you try that again?";
+    addMessage(offlineMsg, 'bot');
   }
 
   neoInput.disabled = false;
